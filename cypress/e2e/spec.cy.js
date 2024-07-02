@@ -24,6 +24,20 @@ describe("template spec", () => {
     cy.get(".todo-list li").should("have.length", 0);
   });
 
+  it("Insere e edita uma tarefa", () => {
+    cy.visit("http://127.0.0.1:7001");
+
+    const todo1 = "Assistir Filme";
+    cy.get(".new-todo").type(`${todo1}{enter}`);
+    cy.get(".todo-list li").first().should("have.text", todo1);
+
+    const todo2 = "Prova de aprendizado de máquina";
+    cy.get(".todo-list li").dblclick();
+    cy.get(".edit").clear().type(`${todo2}{enter}`);
+
+    cy.get(".todo-list li").first().should("have.text", todo2);
+  });
+
   it("Filtra tarefas completas e ativas", () => {
     cy.visit("http://127.0.0.1:7001");
 
